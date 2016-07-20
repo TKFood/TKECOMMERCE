@@ -87,6 +87,12 @@
     <Compile Include="FrmMPRECOPTC.Designer.cs">
       <DependentUpon>FrmMPRECOPTC.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmREDSCCOPTI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmREDSCCOPTI.Designer.cs">
+      <DependentUpon>FrmREDSCCOPTI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmREDSCCOPTG.resx">
@@ -100,6 +106,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMPRECOPTC.resx">
       <DependentUpon>FrmMPRECOPTC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmREDSCCOPTI.resx">
+      <DependentUpon>FrmREDSCCOPTI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
