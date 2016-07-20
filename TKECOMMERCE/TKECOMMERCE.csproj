@@ -63,11 +63,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrmDSCCOPTG.cs">
+    <Compile Include="FrmREDSCCOPTG.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmDSCCOPTG.Designer.cs">
-      <DependentUpon>FrmDSCCOPTG.cs</DependentUpon>
+    <Compile Include="FrmREDSCCOPTG.Designer.cs">
+      <DependentUpon>FrmREDSCCOPTG.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmLogin.cs">
       <SubType>Form</SubType>
@@ -81,16 +81,25 @@
     <Compile Include="FrmParent.Designer.cs">
       <DependentUpon>FrmParent.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmMPRECOPTC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMPRECOPTC.Designer.cs">
+      <DependentUpon>FrmMPRECOPTC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FrmDSCCOPTG.resx">
-      <DependentUpon>FrmDSCCOPTG.cs</DependentUpon>
+    <EmbeddedResource Include="FrmREDSCCOPTG.resx">
+      <DependentUpon>FrmREDSCCOPTG.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmParent.resx">
       <DependentUpon>FrmParent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMPRECOPTC.resx">
+      <DependentUpon>FrmMPRECOPTC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
