@@ -71,7 +71,7 @@ namespace TKECOMMERCE
                     sbSqlQuery.Clear();
 
                     sbSqlQuery.AppendFormat("{0}",dateTimePicker1.Value.ToString("yyyyMM"));
-                    sbSql.AppendFormat(@"SELECT  YEARMONTH AS '年月', ZTKECOMMERCEFrmMPRECOPTC.MB001 AS '品號', ZTKECOMMERCEFrmMPRECOPTC.MB002 AS '品名', PREOrderNum AS '數量',MB004 AS '單位' FROM  [{0}].[dbo].ZTKECOMMERCEFrmMPRECOPTC  WITH (NOLOCK) ,[{1}].[dbo].INVMB  WITH (NOLOCK) WHERE ZTKECOMMERCEFrmMPRECOPTC.MB001=INVMB.MB001 AND YEARMONTH='{2}'  ", NowDB, NowDB, sbSqlQuery.ToString());
+                    sbSql.AppendFormat(@"SELECT  YEARMONTH AS '年月', ZTKECOMMERCEFrmMPRECOPTC.MB001 AS '品號', ZTKECOMMERCEFrmMPRECOPTC.MB002 AS '品名', PREOrderNum AS '數量',MB004 AS '單位' ,TC001 AS '訂單別' ,TC002 AS '訂單號' FROM  [{0}].[dbo].ZTKECOMMERCEFrmMPRECOPTC  WITH (NOLOCK) ,[{1}].[dbo].INVMB  WITH (NOLOCK) WHERE ZTKECOMMERCEFrmMPRECOPTC.MB001=INVMB.MB001 AND YEARMONTH='{2}'  ", NowDB, NowDB, sbSqlQuery.ToString());
 
                     adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
                     sqlCmdBuilder = new SqlCommandBuilder(adapter);
@@ -189,6 +189,9 @@ namespace TKECOMMERCE
                 {
                     tran.Commit();      //執行交易                    
                 }
+                sqlConn.Close();
+
+                
             }
             catch
             {
@@ -305,6 +308,35 @@ namespace TKECOMMERCE
                     }
 
                     sqlConn.Close();
+
+                    //UPDATE ZTKECOMMERCEFrmMPRECOPTC
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+                    //ADD COPTC
+                    sbSql.AppendFormat(" UPDATE [{0}].dbo.[ZTKECOMMERCEFrmMPRECOPTC] SET TC001='{1}',TC002='{2}' WHERE YEARMONTH='{3}'",NowDB ,TC001.ToString(),TC002.ToString(),dateTimePicker1.Value.ToString("yyyyMM"));
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易                           
+                    }
+
+                    sqlConn.Close();
                 }
                 
 
@@ -318,6 +350,63 @@ namespace TKECOMMERCE
                 sqlConn.Close();
             }
 
+            Search();
+
+        }
+
+        public void DelZTKECOMMERCEFrmMPRECOPTC()
+        {
+            try
+            {
+                DialogResult dialogResult = MessageBox.Show("是否真的要刪除", "del?", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    //Del ZTKECOMMERCEFrmMPRECOPTC
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+                    //ADD COPTC
+                    sbSql.AppendFormat(" DELETE [{0}].dbo.[ZTKECOMMERCEFrmMPRECOPTC] WHERE YEARMONTH='{1}'", NowDB, dateTimePicker1.Value.ToString("yyyyMM"));
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易                           
+                    }
+
+                    sqlConn.Close();
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    //do something else
+                }
+
+                
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+
+            Search();
         }
         #endregion
 
@@ -339,6 +428,10 @@ namespace TKECOMMERCE
         private void button4_Click(object sender, EventArgs e)
         {
             AddtoERP();
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            DelZTKECOMMERCEFrmMPRECOPTC();
         }
         #endregion
 
