@@ -64,14 +64,14 @@ namespace TKECOMMERCE
 
                 if (!string.IsNullOrEmpty(dateTimePicker1.Text.ToString()) )
                 {
-                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
                     sqlConn = new SqlConnection(connectionString);
 
                     sbSql.Clear();
                     sbSqlQuery.Clear();
 
                     sbSqlQuery.AppendFormat("{0}",dateTimePicker1.Value.ToString("yyyyMM"));
-                    sbSql.AppendFormat(@"SELECT  YEARMONTH AS '年月', ZTKECOMMERCEFrmMPRECOPTC.MB001 AS '品號', ZTKECOMMERCEFrmMPRECOPTC.MB002 AS '品名', PREOrderNum AS '數量',MB004 AS '單位' ,TC001 AS '訂單別' ,TC002 AS '訂單號' FROM  [{0}].[dbo].ZTKECOMMERCEFrmMPRECOPTC  WITH (NOLOCK) ,[{1}].[dbo].INVMB  WITH (NOLOCK) WHERE ZTKECOMMERCEFrmMPRECOPTC.MB001=INVMB.MB001 AND YEARMONTH='{2}'  ", NowDB, NowDB, sbSqlQuery.ToString());
+                    sbSql.AppendFormat(@"SELECT  YEARMONTH AS '年月', ZTKECOMMERCEFrmMPRECOPTC.MB001 AS '品號', ZTKECOMMERCEFrmMPRECOPTC.MB002 AS '品名', PREOrderNum AS '數量',MB004 AS '單位' ,TC001 AS '訂單別' ,TC002 AS '訂單號' FROM  [{0}].[dbo].ZTKECOMMERCEFrmMPRECOPTC  WITH (NOLOCK) ,[{1}].[dbo].INVMB  WITH (NOLOCK) WHERE ZTKECOMMERCEFrmMPRECOPTC.MB001=INVMB.MB001 AND YEARMONTH='{2}'  ", sqlConn.Database.ToString(), NowDB, sbSqlQuery.ToString());
 
                     adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
                     sqlCmdBuilder = new SqlCommandBuilder(adapter);
@@ -157,7 +157,7 @@ namespace TKECOMMERCE
 
           
                 //add ZTKECOMMERCEFrmMPRECOPTC
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
                 sqlConn = new SqlConnection(connectionString);
 
                 sqlConn.Close();
@@ -168,12 +168,12 @@ namespace TKECOMMERCE
                 sbSql.Append(" ");               
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    sbSql.AppendFormat(" INSERT INTO [{0}].[dbo].[ZTKECOMMERCEFrmMPRECOPTC] ", NowDB);
+                    sbSql.AppendFormat(" INSERT INTO [{0}].[dbo].[ZTKECOMMERCEFrmMPRECOPTC] ", sqlConn.Database.ToString());
                     sbSql.Append(" (YEARMONTH, MB001,MB002,  PREOrderNum )");
                     sbSql.AppendFormat(" VALUES ('{0}','{1}','NA','{2}')", dt.Rows[i]["年月"].ToString(), dt.Rows[i]["品號"].ToString(), dt.Rows[i]["數量"].ToString());
                     sbSql.Append(" ");
                 }
-                sbSql.AppendFormat(" UPDATE [{0}].[dbo].[ZTKECOMMERCEFrmMPRECOPTC] SET ZTKECOMMERCEFrmMPRECOPTC.MB002=INVMB.MB002 FROM [{1}].[dbo].[INVMB] WHERE ZTKECOMMERCEFrmMPRECOPTC.MB001=INVMB.MB001 AND ZTKECOMMERCEFrmMPRECOPTC.MB002='NA'", NowDB, NowDB);
+                sbSql.AppendFormat(" UPDATE [{0}].[dbo].[ZTKECOMMERCEFrmMPRECOPTC] SET ZTKECOMMERCEFrmMPRECOPTC.MB002=INVMB.MB002 FROM [{1}].[dbo].[INVMB] WHERE ZTKECOMMERCEFrmMPRECOPTC.MB001=INVMB.MB001 AND ZTKECOMMERCEFrmMPRECOPTC.MB002='NA'", sqlConn.Database.ToString(), NowDB);
                 sbSql.Append(" ");
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
@@ -279,7 +279,7 @@ namespace TKECOMMERCE
                     sbSql.Append("   , 0 [TD061], 'N' [TD062], NULL [TD063], NULL [TD064], NULL [TD065], NULL [TD066], NULL [TD067], NULL [TD068],'N'  [TD069], 0 [TD070] ");
                     sbSql.Append(" , NULL [TD071], NULL [TD072], NULL [TD073], NULL [TD074], NULL [TD075], 0 [TD076], NULL [TD077], NULL [TD078],'N' [TD079], NULL [TD080]");
                     sbSql.Append(" , 0 [TD081], NULL [TD082], NULL [TD083], NULL [TD084], 0 [TD085], NULL [TD086], 0 [TD087]");
-                    sbSql.Append(" FROM [test].[dbo].[ZTKECOMMERCEFrmMPRECOPTC],[test].[dbo].[INVMB]");
+                    sbSql.Append(" FROM [TKECOMMERCE].[dbo].[ZTKECOMMERCEFrmMPRECOPTC],[test].[dbo].[INVMB]");
                     sbSql.Append(" WHERE ZTKECOMMERCEFrmMPRECOPTC.MB001=INVMB.MB001");
                     sbSql.AppendFormat(" AND YEARMONTH='{0}'",dateTimePicker1.Value.ToString("yyyyMM"));
                     sbSql.Append(" ");
