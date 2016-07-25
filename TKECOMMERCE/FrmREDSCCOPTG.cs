@@ -99,7 +99,16 @@ namespace TKECOMMERCE
             wb.Write(file);
             file.Close();
 
-            MessageBox.Show("匯出完成");
+            MessageBox.Show("匯出完成-EXCEL放在-"+ filename.ToString());
+            FileInfo fi = new FileInfo(filename.ToString());
+            if (fi.Exists)
+            {
+                System.Diagnostics.Process.Start(filename.ToString());
+            }
+            else
+            {
+                //file doesn't exist
+            }
         }
 
         public void Search()
