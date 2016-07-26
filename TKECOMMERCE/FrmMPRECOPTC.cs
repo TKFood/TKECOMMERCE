@@ -50,6 +50,52 @@ namespace TKECOMMERCE
         }
 
         #region FUNCTION
+        public void EXCELPORT()
+        {
+            IWorkbook wb = new XSSFWorkbook();
+            ISheet ws;           
+
+            ////建立Excel 2007檔案
+            //IWorkbook wb = new XSSFWorkbook();
+            //ISheet ws;
+
+
+            ws = wb.CreateSheet("Sheet1");
+
+            ws.CreateRow(0);//第一行為欄位名稱
+            ws.GetRow(0).CreateCell(0).SetCellValue("年月");
+            ws.GetRow(0).CreateCell(1).SetCellValue("品號");
+            ws.GetRow(0).CreateCell(2).SetCellValue("數量");
+            
+
+            if (Directory.Exists(@"c:\temp\"))
+            {
+                //資料夾存在
+            }
+            else
+            {
+                //新增資料夾
+                Directory.CreateDirectory(@"c:\temp\");
+            }
+            StringBuilder filename = new StringBuilder();
+            filename.AppendFormat(@"c:\temp\預估匯入範本{0}.xlsx", DateTime.Now.ToString("yyyyMMdd"));
+
+            FileStream file = new FileStream(filename.ToString(), FileMode.Create);//產生檔案
+            wb.Write(file);
+            file.Close();
+
+            MessageBox.Show("匯出完成-EXCEL放在-" + filename.ToString());
+            FileInfo fi = new FileInfo(filename.ToString());
+            if (fi.Exists)
+            {
+                System.Diagnostics.Process.Start(filename.ToString());
+            }
+            else
+            {
+                //file doesn't exist
+            }
+
+        }
         public void SetMyCustomFormat()
         {
             // Set the Format type and the CustomFormat string.
@@ -362,7 +408,7 @@ namespace TKECOMMERCE
                 if (dialogResult == DialogResult.Yes)
                 {
                     //Del ZTKECOMMERCEFrmMPRECOPTC
-                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
                     sqlConn = new SqlConnection(connectionString);
 
                     sqlConn.Close();
@@ -371,7 +417,7 @@ namespace TKECOMMERCE
 
                     sbSql.Clear();
                     //ADD COPTC
-                    sbSql.AppendFormat(" DELETE [{0}].dbo.[ZTKECOMMERCEFrmMPRECOPTC] WHERE YEARMONTH='{1}'", NowDB, dateTimePicker1.Value.ToString("yyyyMM"));
+                    sbSql.AppendFormat(" DELETE [{0}].dbo.[ZTKECOMMERCEFrmMPRECOPTC] WHERE YEARMONTH='{1}'", sqlConn.Database.ToString(), dateTimePicker1.Value.ToString("yyyyMM"));
 
                     cmd.Connection = sqlConn;
                     cmd.CommandTimeout = 60;
@@ -432,6 +478,11 @@ namespace TKECOMMERCE
         private void button5_Click(object sender, EventArgs e)
         {
             DelZTKECOMMERCEFrmMPRECOPTC();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            EXCELPORT();
         }
         #endregion
 
