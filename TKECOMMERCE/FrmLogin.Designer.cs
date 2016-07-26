@@ -75,6 +75,7 @@
             this.txt_Password.Name = "txt_Password";
             this.txt_Password.Size = new System.Drawing.Size(88, 22);
             this.txt_Password.TabIndex = 1;
+            this.txt_Password.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_Password_KeyDown);
             // 
             // button1
             // 

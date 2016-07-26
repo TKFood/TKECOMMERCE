@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace TKECOMMERCE
 {
@@ -113,6 +114,15 @@ namespace TKECOMMERCE
                     }
                 }
             }
+        }
+
+        private void FrmParent_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //=====偵測執行中的外部程式並關閉=====
+            Process[] MyProcess = Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName);
+            if (MyProcess.Length > 0)
+                MyProcess[0].Kill(); //關閉執行中的程式
+
         }
     }
 }

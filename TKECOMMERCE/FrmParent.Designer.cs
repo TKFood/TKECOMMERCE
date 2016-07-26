@@ -37,6 +37,7 @@
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Name = "FrmParent";
             this.Text = "FrmParent";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmParent_FormClosed);
             this.Load += new System.EventHandler(this.FrmParent_Load);
             this.ResumeLayout(false);
 
