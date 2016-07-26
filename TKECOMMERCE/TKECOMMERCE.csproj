@@ -90,6 +90,12 @@
     <Compile Include="FrmMPRECOPTC.Designer.cs">
       <DependentUpon>FrmMPRECOPTC.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmREDSCCOPTGPCT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmREDSCCOPTGPCT.Designer.cs">
+      <DependentUpon>FrmREDSCCOPTGPCT.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmREDSCCOPTI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMPRECOPTC.resx">
       <DependentUpon>FrmMPRECOPTC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmREDSCCOPTGPCT.resx">
+      <DependentUpon>FrmREDSCCOPTGPCT.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmREDSCCOPTI.resx">
       <DependentUpon>FrmREDSCCOPTI.cs</DependentUpon>

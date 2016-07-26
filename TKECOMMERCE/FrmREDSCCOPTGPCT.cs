@@ -23,7 +23,7 @@ using NPOI.XSSF.UserModel;
 
 namespace TKECOMMERCE
 {
-    public partial class FrmREDSCCOPTG : Form
+    public partial class FrmREDSCCOPTGPCT : Form
     {
         SqlConnection sqlConn = new SqlConnection();
         SqlCommand sqlComm = new SqlCommand();
@@ -34,25 +34,26 @@ namespace TKECOMMERCE
         SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
-        DataSet ds= new DataSet();
+        DataSet ds = new DataSet();
         DataTable dt = new DataTable();
         string NowDB;
         string NowTable = null;
         int result;
 
-        public FrmREDSCCOPTG()
+        public FrmREDSCCOPTGPCT()
         {
             InitializeComponent();
+            dateTimePicker1.CustomFormat = "yyyyMM";
         }
 
         #region FUNCTION
-        public void ExportExcel(DataSet dsExcel,string Tabelname)
+        public void ExportExcel(DataSet dsExcel, string Tabelname)
         {
             String NowDB = "TK";
             //建立Excel 2003檔案
             IWorkbook wb = new XSSFWorkbook();
             ISheet ws;
-                        
+
             dt = dsExcel.Tables[Tabelname];
 
             ////建立Excel 2007檔案
@@ -93,13 +94,13 @@ namespace TKECOMMERCE
                 Directory.CreateDirectory(@"c:\temp\");
             }
             StringBuilder filename = new StringBuilder();
-            filename.AppendFormat(@"c:\temp\銷貨{0}.xlsx",DateTime.Now.ToString("yyyyMMdd"));
+            filename.AppendFormat(@"c:\temp\銷售完成率{0}.xlsx", DateTime.Now.ToString("yyyyMMdd"));
 
             FileStream file = new FileStream(filename.ToString(), FileMode.Create);//產生檔案
             wb.Write(file);
             file.Close();
 
-            MessageBox.Show("匯出完成-EXCEL放在-"+ filename.ToString());
+            MessageBox.Show("匯出完成-EXCEL放在-" + filename.ToString());
             FileInfo fi = new FileInfo(filename.ToString());
             if (fi.Exists)
             {
@@ -119,65 +120,44 @@ namespace TKECOMMERCE
             sqlConn = new SqlConnection(connectionString);
 
 
-
             sbSql.Clear();
             sbSqlQuery.Clear();
 
-            sbSqlQuery.AppendFormat("  TG003>='{0}' AND TG003<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+            sbSqlQuery.AppendFormat("  [YEARMONTH]='{0}' ", dateTimePicker1.Value.ToString("yyyyMM"));
 
-            if (comboBox1.Text.ToString().Equals("銷售明細"))
+            if (comboBox1.Text.ToString().Equals("銷售完成率"))
             {
-                sbSql.AppendFormat(" SELECT TG001 AS '單別',TG002 AS '單號',TG003 AS '日期',TG004 AS '客代',TG007 AS '客戶' ,TH004 AS '品號',TH005 AS '品名',TH008 AS '數量',TH024 AS '贈品',TH009 AS '單位',TH013 AS '金額' FROM [{0}].dbo.COPTG,[{1}].dbo.COPTH WHERE TG001=TH001 AND TG002=TH002 AND TG001='A233' AND {2} ", NowDB, NowDB, sbSqlQuery.ToString());
+                sbSql.AppendFormat(" SELECT [YEARMONTH] AS '年月',[MB001] AS '品號' ,[MB002] AS '品名',[PREOrderNum] AS '預估量',CAST((SELECT ISNULL(SUM(TH008+TH024),0) FROM [{0}].dbo.COPTH WITH (NOLOCK) WHERE TH004=MB001 AND TH001='A233' AND SUBSTRING(TH002,1,6)=YEARMONTH) AS INT) AS '出貨量',CAST((SELECT ISNULL(SUM(TJ007),0) FROM [{0}].dbo.COPTJ WITH (NOLOCK) WHERE TJ004=MB001 AND TJ001='A246' AND SUBSTRING(TJ002,1,6)=YEARMONTH) AS INT) AS '退貨量',(CAST((SELECT ISNULL(SUM(TH008+TH024),0) FROM [{0}].dbo.COPTH WITH (NOLOCK) WHERE TH004=MB001 AND TH001='A233' AND SUBSTRING(TH002,1,6)=YEARMONTH) AS INT)-CAST((SELECT ISNULL(SUM(TJ007),0) FROM [{0}].dbo.COPTJ WITH (NOLOCK) WHERE TJ004=MB001 AND TJ001='A246' AND SUBSTRING(TJ002,1,6)=YEARMONTH) AS INT))  AS '實出量', ROUND((((SELECT ISNULL(SUM(TH008+TH024),0) FROM [{0}].dbo.COPTH WITH (NOLOCK) WHERE TH004=MB001 AND TH001='A233' AND SUBSTRING(TH002,1,6)=YEARMONTH)-(SELECT ISNULL(SUM(TJ007),0) FROM [{0}].dbo.COPTJ WITH (NOLOCK) WHERE TJ004=MB001 AND TJ001='A246' AND SUBSTRING(TJ002,1,6)=YEARMONTH)))/NULLIF([PREOrderNum],0)*100,2)  AS '銷售百分比' FROM [TKECOMMERCE].[dbo].[ZTKECOMMERCEFrmMPRECOPTC] WITH (NOLOCK) WHERE {1} ", NowDB, sbSqlQuery.ToString());
                 NowTable = "TEMP1";
             }
-            else if(comboBox1.Text.ToString().Equals("品號彙總"))
-            {
-                sbSql.AppendFormat(" SELECT TH004 AS '品號',TH005 AS '品名',CONVERT(real, SUM(TH008)) AS '數量',CONVERT(real, SUM(TH024)) AS '贈品',TH009 AS '單位',CONVERT(real, SUM(TH013)) AS '金額' FROM [TK].dbo.COPTG,[TK].dbo.COPTH WHERE TG001=TH001 AND TG002=TH002 AND TG001='A233' AND  {2} GROUP BY TH004,TH005,TH009 ORDER BY SUM(TH008) DESC", NowDB, NowDB, sbSqlQuery.ToString());
-                NowTable = "TEMP2";
-            }
-            else if(comboBox1.Text.ToString().Equals("金額日彙總"))
-            {
-                sbSql.AppendFormat(" SELECT TG003 AS '日期',CONVERT(real, SUM(TH008)) AS '數量',CONVERT(real, SUM(TH024)) AS '贈品',CONVERT(real, SUM(TH013)) AS '金額' FROM [TK].dbo.COPTG,[TK].dbo.COPTH WHERE TG001=TH001 AND TG002=TH002 AND TG001='A233' AND   {2} GROUP BY TG003 ", NowDB, NowDB, sbSqlQuery.ToString());
-                NowTable = "TEMP3";
-            }
-
+            
             adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
             sqlCmdBuilder = new SqlCommandBuilder(adapter);
 
-            sqlConn.Open();            
+            sqlConn.Open();
             ds.Clear();
 
-            if (comboBox1.Text.ToString().Equals("銷售明細"))
+            if (comboBox1.Text.ToString().Equals("銷售完成率"))
             {
                 adapter.Fill(ds, NowTable);
                 dataGridView1.DataSource = ds.Tables[NowTable];
             }
-            else if (comboBox1.Text.ToString().Equals("品號彙總"))
-            {
-                adapter.Fill(ds, NowTable);
-                dataGridView1.DataSource = ds.Tables[NowTable];
-            }
-            else if (comboBox1.Text.ToString().Equals("金額日彙總"))
-            {
-                adapter.Fill(ds, NowTable);
-                dataGridView1.DataSource = ds.Tables[NowTable];
-            }
-
+            
             sqlConn.Close();
         }
+
         #endregion
 
-        #region BUTTON   
+        #region BUTTON
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             Search();
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            ExportExcel(ds,NowTable);
+            ExportExcel(ds, NowTable);
         }
-
         #endregion
 
 
