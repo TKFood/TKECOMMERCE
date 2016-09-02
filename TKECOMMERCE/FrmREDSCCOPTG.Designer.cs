@@ -174,7 +174,7 @@
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(154, 16);
             this.checkBox1.TabIndex = 7;
-            this.checkBox1.Text = "是否含現銷單";
+            this.checkBox1.Text = "是否含現銷單(電商)";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // FrmREDSCCOPTG
