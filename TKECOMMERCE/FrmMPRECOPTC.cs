@@ -230,10 +230,12 @@ namespace TKECOMMERCE
                 if (result == 0)
                 {
                     tran.Rollback();    //交易取消
+                    MessageBox.Show("CANCAL");
                 }
                 else
                 {
-                    tran.Commit();      //執行交易                    
+                    tran.Commit();      //執行交易    
+                    MessageBox.Show("OK");                
                 }
                 sqlConn.Close();
 
@@ -241,7 +243,7 @@ namespace TKECOMMERCE
             }
             catch
             {
-
+                MessageBox.Show("FAIL");
             }
 
             finally
