@@ -30,6 +30,8 @@ namespace TKECOMMERCE
         private string Excel03ConString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0;HDR={1}'";
         private string Excel07ConString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 8.0;HDR={1}'";
 
+        DataTable dt = new DataTable();
+
         public FrmYAHOO()
         {
             InitializeComponent();
@@ -77,7 +79,7 @@ namespace TKECOMMERCE
                 {
                     using (OleDbDataAdapter oda = new OleDbDataAdapter())
                     {
-                        DataTable dt = new DataTable();
+                       
                         cmd.CommandText = "SELECT * From [" + sheetName + "]";
                         cmd.Connection = con;
                         con.Open();
@@ -91,6 +93,19 @@ namespace TKECOMMERCE
                 }
             }
         }
+
+
+        public void ImportDB()
+        {
+            if(dt.Rows.Count>=1)
+            {
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    MessageBox.Show(row.Cells["訂單編號"].Value.ToString());
+                    //More code here
+                }
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -98,7 +113,13 @@ namespace TKECOMMERCE
         {
             openFileDialog1.ShowDialog();
         }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ImportDB();
+        }
 
         #endregion
+
+
     }
 }
