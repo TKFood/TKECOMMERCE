@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/01/2017 16:24:27" ReportInfo.Modified="12/01/2017 16:39:56" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9I5EIKm1XrDuwZtlcH4Zxaj">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="/****** SSMS 中 SelectTopNRows 命令的指令碼  ******/&#13;&#10;SELECT &#13;&#10;[ID] AS '訂單編號'&#13;&#10;,[NAME] AS '訂購人'&#13;&#10;,[SERNO] AS '交易序號'&#13;&#10;,[PAYKIND] AS '付款別'&#13;&#10;,[RECIVER] AS '收件人姓名'&#13;&#10;,[POST] AS '收件人郵遞區號'&#13;&#10;,[ADDER] AS '收件人地址'&#13;&#10;,[ADDDATE] AS '轉單日期'&#13;&#10;,[SHIPDATE] AS '最晚出貨日'&#13;&#10;,[SHOPDATE] AS '店家出貨日'&#13;&#10;,[KIND] AS '商品類型'&#13;&#10;,[DELIVERY] AS '物流設定'&#13;&#10;,[YNO] AS '商品編號'&#13;&#10;,[PNO] AS '店家商品料號'&#13;&#10;,[PNAME] AS '商品名稱'&#13;&#10;,[REMARK] AS '購物車備註'&#13;&#10;,[SPEC] AS '商品規格'&#13;&#10;,[QUANTITY] AS '數量'&#13;&#10;,[TMONEY] AS '金額小計'&#13;&#10;,[STATES] AS '訂單狀態'&#13;&#10;,[INMONEYDATE] AS '入帳日'&#13;&#10;,[TELDAY] AS '收件人電話(日)'&#13;&#10;,[TELNIGHT] AS '收件人電話(夜)'&#13;&#10;,[MOBILE] AS '收件人行動電話'&#13;&#10;,[TAX] AS '商品稅別'&#13;&#10;,[BONUS] AS '超贈點點數'&#13;&#10;,[BONUSMONEY] AS '超贈點折抵金額'&#13;&#10;,[DISCOUNTACT] AS '折扣碼活動編號'&#13;&#10;,[DISCOUNTCODE] AS '折扣碼'&#13;&#10;,[DISCOUNTMONEY] AS '折扣碼折抵金額'&#13;&#10;FROM [TKECOMMERCE].[dbo].[YAHOO]&#13;&#10;WHERE [ADDDATE]&gt;=@P1 AND [ADDDATE]&lt;=@P2">
+        <Column Name="訂單編號" DataType="System.String"/>
+        <Column Name="訂購人" DataType="System.String"/>
+        <Column Name="交易序號" DataType="System.String"/>
+        <Column Name="付款別" DataType="System.String"/>
+        <Column Name="收件人姓名" DataType="System.String"/>
+        <Column Name="收件人郵遞區號" DataType="System.String"/>
+        <Column Name="收件人地址" DataType="System.String"/>
+        <Column Name="轉單日期" DataType="System.DateTime"/>
+        <Column Name="最晚出貨日" DataType="System.DateTime"/>
+        <Column Name="店家出貨日" DataType="System.DateTime"/>
+        <Column Name="商品類型" DataType="System.String"/>
+        <Column Name="物流設定" DataType="System.String"/>
+        <Column Name="商品編號" DataType="System.String"/>
+        <Column Name="店家商品料號" DataType="System.String"/>
+        <Column Name="商品名稱" DataType="System.String"/>
+        <Column Name="購物車備註" DataType="System.String"/>
+        <Column Name="商品規格" DataType="System.String"/>
+        <Column Name="數量" DataType="System.Decimal"/>
+        <Column Name="金額小計" DataType="System.Decimal"/>
+        <Column Name="訂單狀態" DataType="System.String"/>
+        <Column Name="入帳日" DataType="System.DateTime"/>
+        <Column Name="收件人電話(日)" DataType="System.String"/>
+        <Column Name="收件人電話(夜)" DataType="System.String"/>
+        <Column Name="收件人行動電話" DataType="System.String"/>
+        <Column Name="商品稅別" DataType="System.String"/>
+        <Column Name="超贈點點數" DataType="System.String"/>
+        <Column Name="超贈點折抵金額" DataType="System.Decimal"/>
+        <Column Name="折扣碼活動編號" DataType="System.String"/>
+        <Column Name="折扣碼" DataType="System.String"/>
+        <Column Name="折扣碼折抵金額" DataType="System.Decimal"/>
+        <CommandParameter Name="P1" DataType="12" DefaultValue="2017/11/1"/>
+        <CommandParameter Name="P2" DataType="12" DefaultValue="2017/12/1"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8"/>
+    <GroupHeaderBand Name="GroupHeader1" Top="41.65" Width="718.2" Height="18.9" Condition="[Table.交易序號]">
+      <TextObject Name="Text1" Width="122.85" Height="18.9" Border.Lines="All" Text="[Table.交易序號]"/>
+      <DataBand Name="Data1" Top="64.39" Width="718.2" Height="28.35" DataSource="Table">
+        <TextObject Name="Text2" Width="132.3" Height="18.9" Border.Lines="All" Text="[Table.店家商品料號]"/>
+        <TextObject Name="Text3" Left="132.3" Width="340.2" Height="18.9" Border.Lines="All" Text="[Table.商品名稱]"/>
+        <TextObject Name="Text4" Left="472.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.數量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Trimming="EllipsisCharacter"/>
+      </DataBand>
+      <GroupFooterBand Name="GroupFooter1" Top="96.59" Width="718.2" Height="37.8"/>
+    </GroupHeaderBand>
+  </ReportPage>
+</Report>

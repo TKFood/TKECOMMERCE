@@ -35,6 +35,7 @@ namespace TKECOMMERCE
         SqlConnection sqlConn = new SqlConnection();
         SqlCommand sqlComm = new SqlCommand();
         string connectionString;
+        private Report report1;
 
         public FrmYAHOO()
         {
@@ -280,6 +281,23 @@ namespace TKECOMMERCE
             }
             
         }
+        public void SETFASTREPORT()
+        {
+            report1 = new Report();
+            report1.Load(@"REPORT\YAHOO訂單.frx");
+
+            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+
+            report1.SetParameterValue("P1", dateTimePicker1.Value.ToString("yyyyMMdd"));
+
+            DateTime dt = Convert.ToDateTime(dateTimePicker2.Value);
+            dt = dt.AddDays(1);
+
+            report1.SetParameterValue("P2", dt.ToString("yyyyMMdd"));        
+
+            report1.Preview = previewControl1;
+            report1.Show();
+        }
         #endregion
 
         #region BUTTON
@@ -290,6 +308,10 @@ namespace TKECOMMERCE
         private void button2_Click(object sender, EventArgs e)
         {
             ImportDB();
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT();
         }
 
         #endregion
