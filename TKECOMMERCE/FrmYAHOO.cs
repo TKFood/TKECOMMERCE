@@ -32,6 +32,10 @@ namespace TKECOMMERCE
 
         DataTable dt = new DataTable();
 
+        SqlConnection sqlConn = new SqlConnection();
+        SqlCommand sqlComm = new SqlCommand();
+        string connectionString;
+
         public FrmYAHOO()
         {
             InitializeComponent();
@@ -97,14 +101,81 @@ namespace TKECOMMERCE
 
         public void ImportDB()
         {
-            if(dt.Rows.Count>=1)
+            if (dataGridView1.Rows.Count>=1)
             {
+                Bulk_Insert();
+
+                //foreach (DataGridViewRow row in dataGridView1.Rows)
+                //{
+                //    using (SqlConnection con = new SqlConnection(connectionString))
+                //    {
+                //        using (SqlCommand cmd = new SqlCommand("INSERT INTO [TKECOMMERCE].[dbo].[YAHOO] (ID) VALUES(@ID)", con))
+                //        {
+                //            cmd.Parameters.AddWithValue("@ID", row.Cells["訂單編號"].Value);
+                //            con.Open();
+                //            cmd.ExecuteNonQuery();
+                //            con.Close();
+                //        }
+                //    }
+
+                //    //MessageBox.Show(row.Cells["訂單編號"].Value.ToString());
+                //    //More code here
+                //}
+            }
+        }
+
+        protected void Bulk_Insert()
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt.Columns.AddRange(new DataColumn[2] {
+                new DataColumn("ID", typeof(string)),
+                new DataColumn("NAME", typeof(string))
+            });
+
                 foreach (DataGridViewRow row in dataGridView1.Rows)
                 {
-                    MessageBox.Show(row.Cells["訂單編號"].Value.ToString());
-                    //More code here
+                    string ID = row.Cells["訂單編號"].Value.ToString();
+                    string NAME = row.Cells["訂購人"].Value.ToString();
+
+                    dt.Rows.Add(ID, NAME);
                 }
+
+                if (dt.Rows.Count > 0)
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(connectionString))
+                    {
+                        using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
+                        {
+                            //Set the database table name
+                            sqlBulkCopy.DestinationTableName = "[TKECOMMERCE].[dbo].[YAHOO]";
+
+                            //[OPTIONAL]: Map the DataTable columns with that of the database table
+                            sqlBulkCopy.ColumnMappings.Add("ID", "ID");
+                            sqlBulkCopy.ColumnMappings.Add("NAME", "NAME");
+
+                            con.Open();
+                            sqlBulkCopy.WriteToServer(dt);
+                            con.Close();
+                        }
+                    }
+                }
+
+                MessageBox.Show("完成");
             }
+
+            catch
+            {
+                MessageBox.Show("錯誤");
+            }
+
+            finally
+            {
+
+            }
+            
         }
         #endregion
 
