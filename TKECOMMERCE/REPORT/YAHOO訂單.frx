@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/01/2017 16:24:27" ReportInfo.Modified="12/05/2017 17:16:53" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/01/2017 16:24:27" ReportInfo.Modified="12/05/2017 17:20:46" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9J3pXzXGcKxc6c1eDSxlUmP">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KA4NTLNGuWMfppifCjnHlv">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="/****** SSMS 中 SelectTopNRows 命令的指令碼  ******/&#13;&#10;SELECT &#13;&#10;[ID] AS '訂單編號'&#13;&#10;,[NAME] AS '訂購人'&#13;&#10;,[SERNO] AS '交易序號'&#13;&#10;,[PAYKIND] AS '付款別'&#13;&#10;,[RECIVER] AS '收件人姓名'&#13;&#10;,[POST] AS '收件人郵遞區號'&#13;&#10;,[ADDER] AS '收件人地址'&#13;&#10;,[ADDDATE] AS '轉單日期'&#13;&#10;,[SHIPDATE] AS '最晚出貨日'&#13;&#10;,[SHOPDATE] AS '店家出貨日'&#13;&#10;,[KIND] AS '商品類型'&#13;&#10;,[DELIVERY] AS '物流設定'&#13;&#10;,[YNO] AS '商品編號'&#13;&#10;,[PNO] AS '店家商品料號'&#13;&#10;,[PNAME] AS '商品名稱'&#13;&#10;,[REMARK] AS '購物車備註'&#13;&#10;,[SPEC] AS '商品規格'&#13;&#10;,[QUANTITY] AS '數量'&#13;&#10;,[TMONEY] AS '金額小計'&#13;&#10;,[STATES] AS '訂單狀態'&#13;&#10;,[INMONEYDATE] AS '入帳日'&#13;&#10;,[TELDAY] AS '收件人電話(日)'&#13;&#10;,[TELNIGHT] AS '收件人電話(夜)'&#13;&#10;,[MOBILE] AS '收件人行動電話'&#13;&#10;,[TAX] AS '商品稅別'&#13;&#10;,[BONUS] AS '超贈點點數'&#13;&#10;,[BONUSMONEY] AS '超贈點折抵金額'&#13;&#10;,[DISCOUNTACT] AS '折扣碼活動編號'&#13;&#10;,[DISCOUNTCODE] AS '折扣碼'&#13;&#10;,[DISCOUNTMONEY] AS '折扣碼折抵金額'&#13;&#10;FROM [TKECOMMERCE].[dbo].[YAHOO]&#13;&#10;WHERE [ADDDATE]&gt;=@P1 AND [ADDDATE]&lt;=@P2">
         <Column Name="訂單編號" DataType="System.String"/>
         <Column Name="訂購人" DataType="System.String"/>
@@ -40,7 +40,7 @@
   </Dictionary>
   <ReportPage Name="Page1">
     <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="18.9">
-      <TextObject Name="Text5" Width="708.75" Height="18.9" Text="蝦皮訂單" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Width="708.75" Height="18.9" Text="YAHOO訂單" HorzAlign="Center" VertAlign="Center"/>
     </ReportTitleBand>
     <GroupHeaderBand Name="GroupHeader1" Top="22.75" Width="718.2" Height="170.1" Condition="[Table.交易序號]">
       <TextObject Name="Text1" Left="132.3" Top="-0.04" Width="113.4" Height="18.9" Border.Lines="All" Text="[Table.交易序號]" VertAlign="Center"/>
