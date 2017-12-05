@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/01/2017 16:24:27" ReportInfo.Modified="12/01/2017 16:39:56" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/01/2017 16:24:27" ReportInfo.Modified="12/05/2017 17:16:53" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9I5EIKm1XrDuwZtlcH4Zxaj">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9J3pXzXGcKxc6c1eDSxlUmP">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="/****** SSMS 中 SelectTopNRows 命令的指令碼  ******/&#13;&#10;SELECT &#13;&#10;[ID] AS '訂單編號'&#13;&#10;,[NAME] AS '訂購人'&#13;&#10;,[SERNO] AS '交易序號'&#13;&#10;,[PAYKIND] AS '付款別'&#13;&#10;,[RECIVER] AS '收件人姓名'&#13;&#10;,[POST] AS '收件人郵遞區號'&#13;&#10;,[ADDER] AS '收件人地址'&#13;&#10;,[ADDDATE] AS '轉單日期'&#13;&#10;,[SHIPDATE] AS '最晚出貨日'&#13;&#10;,[SHOPDATE] AS '店家出貨日'&#13;&#10;,[KIND] AS '商品類型'&#13;&#10;,[DELIVERY] AS '物流設定'&#13;&#10;,[YNO] AS '商品編號'&#13;&#10;,[PNO] AS '店家商品料號'&#13;&#10;,[PNAME] AS '商品名稱'&#13;&#10;,[REMARK] AS '購物車備註'&#13;&#10;,[SPEC] AS '商品規格'&#13;&#10;,[QUANTITY] AS '數量'&#13;&#10;,[TMONEY] AS '金額小計'&#13;&#10;,[STATES] AS '訂單狀態'&#13;&#10;,[INMONEYDATE] AS '入帳日'&#13;&#10;,[TELDAY] AS '收件人電話(日)'&#13;&#10;,[TELNIGHT] AS '收件人電話(夜)'&#13;&#10;,[MOBILE] AS '收件人行動電話'&#13;&#10;,[TAX] AS '商品稅別'&#13;&#10;,[BONUS] AS '超贈點點數'&#13;&#10;,[BONUSMONEY] AS '超贈點折抵金額'&#13;&#10;,[DISCOUNTACT] AS '折扣碼活動編號'&#13;&#10;,[DISCOUNTCODE] AS '折扣碼'&#13;&#10;,[DISCOUNTMONEY] AS '折扣碼折抵金額'&#13;&#10;FROM [TKECOMMERCE].[dbo].[YAHOO]&#13;&#10;WHERE [ADDDATE]&gt;=@P1 AND [ADDDATE]&lt;=@P2">
         <Column Name="訂單編號" DataType="System.String"/>
         <Column Name="訂購人" DataType="System.String"/>
@@ -39,15 +39,48 @@
     </MsSqlDataConnection>
   </Dictionary>
   <ReportPage Name="Page1">
-    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8"/>
-    <GroupHeaderBand Name="GroupHeader1" Top="41.65" Width="718.2" Height="18.9" Condition="[Table.交易序號]">
-      <TextObject Name="Text1" Width="122.85" Height="18.9" Border.Lines="All" Text="[Table.交易序號]"/>
-      <DataBand Name="Data1" Top="64.39" Width="718.2" Height="28.35" DataSource="Table">
-        <TextObject Name="Text2" Width="132.3" Height="18.9" Border.Lines="All" Text="[Table.店家商品料號]"/>
-        <TextObject Name="Text3" Left="132.3" Width="340.2" Height="18.9" Border.Lines="All" Text="[Table.商品名稱]"/>
-        <TextObject Name="Text4" Left="472.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.數量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Trimming="EllipsisCharacter"/>
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="18.9">
+      <TextObject Name="Text5" Width="708.75" Height="18.9" Text="蝦皮訂單" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="22.75" Width="718.2" Height="170.1" Condition="[Table.交易序號]">
+      <TextObject Name="Text1" Left="132.3" Top="-0.04" Width="113.4" Height="18.9" Border.Lines="All" Text="[Table.交易序號]" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="132.3" Top="19.86" Width="113.4" Height="18.9" Border.Lines="All" Text="[Table.訂購人]" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="132.3" Top="37.8" Width="113.4" Height="18.9" Border.Lines="All" Text="[Table.付款別]" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="349.65" Width="359.1" Height="18.9" Border.Lines="All" Text="[Table.收件人姓名]" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="349.65" Top="18.9" Width="359.1" Height="18.9" Border.Lines="All" Text="[Table.收件人郵遞區號]" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="349.65" Top="37.8" Width="359.1" Height="18.9" Border.Lines="All" Text="[Table.收件人地址]" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="132.3" Top="56.7" Width="113.4" Height="18.9" Border.Lines="All" Text="[Table.轉單日期]" Format="Date" Format.Format="d" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="132.3" Top="75.6" Width="113.4" Height="18.9" Border.Lines="All" Text="[Table.最晚出貨日]" Format="Date" Format.Format="d" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="132.3" Top="113.4" Width="576.45" Height="18.9" Border.Lines="All" Text="[Table.購物車備註]" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="349.65" Top="56.7" Width="359.1" Height="18.9" Border.Lines="All" Text="[Table.收件人電話(日)]" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="349.65" Top="75.6" Width="359.1" Height="18.9" Border.Lines="All" Text="[Table.收件人電話(夜)]" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="349.65" Top="94.5" Width="359.1" Height="18.9" Border.Lines="All" Text="[Table.收件人行動電話]" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="132.3" Top="94.5" Width="113.4" Height="18.9" Border.Lines="All" Text="[Table.物流設定]" VertAlign="Center"/>
+      <TextObject Name="Text19" Top="-0.04" Width="132.3" Height="18.9" Border.Lines="All" Text="交易序號" VertAlign="Center"/>
+      <TextObject Name="Text20" Top="19.31" Width="132.3" Height="18.9" Border.Lines="All" Text="訂購人" VertAlign="Center"/>
+      <TextObject Name="Text21" Top="37.8" Width="132.3" Height="18.9" Border.Lines="All" Text="付款別" VertAlign="Center"/>
+      <TextObject Name="Text22" Top="56.7" Width="132.3" Height="18.9" Border.Lines="All" Text="轉單日期" VertAlign="Center"/>
+      <TextObject Name="Text23" Top="75.6" Width="132.3" Height="18.9" Border.Lines="All" Text="最晚出貨日" VertAlign="Center"/>
+      <TextObject Name="Text24" Top="94.5" Width="132.3" Height="18.9" Border.Lines="All" Text="物流設定" VertAlign="Center"/>
+      <TextObject Name="Text25" Top="113.4" Width="132.3" Height="18.9" Border.Lines="All" Text="購物車備註" VertAlign="Center"/>
+      <TextObject Name="Text26" Left="245.7" Width="103.95" Height="18.9" Border.Lines="All" Text="收件人姓名" VertAlign="Center"/>
+      <TextObject Name="Text27" Left="245.7" Top="18.9" Width="103.95" Height="18.9" Border.Lines="All" Text="郵遞區號" VertAlign="Center"/>
+      <TextObject Name="Text28" Left="245.7" Top="37.8" Width="103.95" Height="18.9" Border.Lines="All" Text="收件人地址" VertAlign="Center"/>
+      <TextObject Name="Text29" Left="245.7" Top="56.7" Width="103.95" Height="18.9" Border.Lines="All" Text="收件人電話(日)" VertAlign="Center"/>
+      <TextObject Name="Text30" Left="245.7" Top="75.6" Width="103.95" Height="18.9" Border.Lines="All" Text="收件人電話(夜)" VertAlign="Center"/>
+      <TextObject Name="Text31" Left="245.7" Top="94.5" Width="103.95" Height="18.9" Border.Lines="All" Text="收件人行動電話" VertAlign="Center"/>
+      <TextObject Name="Text32" Top="151.2" Width="132.3" Height="18.9" Border.Lines="All" Text="店家商品料號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text33" Left="132.3" Top="151.2" Width="387.45" Height="18.9" Border.Lines="All" Text="商品名稱" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text34" Left="519.75" Top="151.2" Width="94.5" Height="18.9" Border.Lines="All" Text="數量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text35" Left="614.25" Top="151.2" Width="94.5" Height="18.9" Border.Lines="All" Text="金額小計" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text36" Top="132.3" Width="708.75" Height="18.9" Border.Lines="All" Text="訂購明細" HorzAlign="Center" VertAlign="Center"/>
+      <DataBand Name="Data1" Top="196.69" Width="718.2" Height="18.9" DataSource="Table">
+        <TextObject Name="Text3" Left="132.3" Width="387.45" Height="18.9" Border.Lines="All" Text="[Table.商品名稱]" VertAlign="Center"/>
+        <TextObject Name="Text4" Left="519.75" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text14" Left="614.25" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.金額小計]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text2" Width="132.3" Height="18.9" Border.Lines="All" Text="[Table.店家商品料號]" VertAlign="Center"/>
       </DataBand>
-      <GroupFooterBand Name="GroupFooter1" Top="96.59" Width="718.2" Height="37.8"/>
+      <GroupFooterBand Name="GroupFooter1" Top="219.44" Width="718.2" Height="18.9"/>
     </GroupHeaderBand>
   </ReportPage>
 </Report>
