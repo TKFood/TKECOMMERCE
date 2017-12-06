@@ -84,7 +84,8 @@ namespace TKECOMMERCE
                 {
                     using (OleDbDataAdapter oda = new OleDbDataAdapter())
                     {
-                       
+                        dt.Clear();
+
                         cmd.CommandText = "SELECT * From [" + sheetName + "]";
                         cmd.Connection = con;
                         con.Open();
@@ -301,7 +302,7 @@ namespace TKECOMMERCE
 
         public void SETNULLDT()
         {
-            dt = null;
+            //dt = null;
             dataGridView1.DataSource = null;
         }
 
