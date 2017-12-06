@@ -298,12 +298,21 @@ namespace TKECOMMERCE
             report1.Preview = previewControl1;
             report1.Show();
         }
+
+        public void SETNULLDT()
+        {
+            dt = null;
+            dataGridView1.DataSource = null;
+        }
+
         #endregion
 
         #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
+            SETNULLDT();
             openFileDialog1.ShowDialog();
+
         }
         private void button2_Click(object sender, EventArgs e)
         {
