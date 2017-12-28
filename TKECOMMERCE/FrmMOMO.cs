@@ -257,7 +257,23 @@ namespace TKECOMMERCE
             //dt = null;
             dataGridView1.DataSource = null;
         }
+        public void SETFASTREPORT()
+        {
+            report1 = new Report();
+            report1.Load(@"REPORT\MOMO訂單.frx");
 
+            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+
+            report1.SetParameterValue("P1", dateTimePicker1.Value.ToString("yyyyMMdd"));
+
+            DateTime dt = Convert.ToDateTime(dateTimePicker2.Value);
+            dt = dt.AddDays(1);
+
+            report1.SetParameterValue("P2", dt.ToString("yyyyMMdd"));
+
+            report1.Preview = previewControl1;
+            report1.Show();
+        }
 
         #endregion
 
@@ -274,6 +290,10 @@ namespace TKECOMMERCE
             ImportDB();
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT();
+        }
         #endregion
 
 
