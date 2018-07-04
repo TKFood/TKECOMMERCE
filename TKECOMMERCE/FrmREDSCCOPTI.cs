@@ -129,17 +129,17 @@ namespace TKECOMMERCE
 
             if (comboBox1.Text.ToString().Equals("銷退明細"))
             {
-                sbSql.AppendFormat(" SELECT TI001 AS '單別',TI002 AS '單號',TI003 AS '日期',TI004 AS '客代',TI021  AS '客戶' ,TJ004 AS '品號',TJ005 AS '品名',TJ007   AS '數量',TJ008 AS '單位',TJ021 AS '金額' FROM [{0}].dbo.COPTI,[{1}].dbo.COPTJ WHERE TI001=TJ001 AND TI002=TJ002 AND TI001='A246' AND {2} ", NowDB, NowDB, sbSqlQuery.ToString());
+                sbSql.AppendFormat(" SELECT TI001 AS '單別',TI002 AS '單號',TI003 AS '日期',TI004 AS '客代',TI021  AS '客戶' ,TJ004 AS '品號',TJ005 AS '品名',TJ007   AS '數量',TJ008 AS '單位',TJ021 AS '金額' FROM [{0}].dbo.COPTI,[{1}].dbo.COPTJ WHERE TI001=TJ001 AND TI002=TJ002 AND TI001='A246' AND TJ021='Y' AND {2} ", NowDB, NowDB, sbSqlQuery.ToString());
                 NowTable = "TEMP1";
             }
             else if (comboBox1.Text.ToString().Equals("品號彙總"))
             {
-                sbSql.AppendFormat(" SELECT TJ004 AS '品號',TJ005 AS '品名',CONVERT(real, SUM(TJ007)) AS '數量',TJ008 AS '單位',CONVERT(real, SUM(TJ012)) AS '金額' FROM [TK].dbo.COPTI,[TK].dbo.COPTJ WHERE TI001=TJ001 AND TI002=TJ002 AND TI001='A246' AND  {2} GROUP BY TJ004,TJ005,TJ008 ORDER BY SUM(TJ007) DESC", NowDB, NowDB, sbSqlQuery.ToString());
+                sbSql.AppendFormat(" SELECT TJ004 AS '品號',TJ005 AS '品名',CONVERT(real, SUM(TJ007)) AS '數量',TJ008 AS '單位',CONVERT(real, SUM(TJ012)) AS '金額' FROM [TK].dbo.COPTI,[TK].dbo.COPTJ WHERE TI001=TJ001 AND TI002=TJ002 AND TI001='A246' AND TJ021='Y' AND  {2} GROUP BY TJ004,TJ005,TJ008 ORDER BY SUM(TJ007) DESC", NowDB, NowDB, sbSqlQuery.ToString());
                 NowTable = "TEMP2";
             }
             else if (comboBox1.Text.ToString().Equals("金額日彙總"))
             {
-                sbSql.AppendFormat(" SELECT TI003 AS '日期',CONVERT(real, SUM(TJ007)) AS '數量',CONVERT(real, SUM(TJ012)) AS '金額' FROM [TK].dbo.COPTI,[TK].dbo.COPTJ WHERE TI001=TJ001 AND TI002=TJ002 AND TI001='A246' AND   {2} GROUP BY TI003 ", NowDB, NowDB, sbSqlQuery.ToString());
+                sbSql.AppendFormat(" SELECT TI003 AS '日期',CONVERT(real, SUM(TJ007)) AS '數量',CONVERT(real, SUM(TJ012)) AS '金額' FROM [TK].dbo.COPTI,[TK].dbo.COPTJ WHERE TI001=TJ001 AND TI002=TJ002 AND TI001='A246' AND TJ021='Y'  AND   {2} GROUP BY TI003 ", NowDB, NowDB, sbSqlQuery.ToString());
                 NowTable = "TEMP3";
             }
 
