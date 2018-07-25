@@ -149,6 +149,11 @@ namespace TKECOMMERCE
                 sbSql.AppendFormat(" SELECT TG003 AS '日期',CONVERT(real, SUM(TH008)) AS '數量',CONVERT(real, SUM(TH024)) AS '贈品',CONVERT(real, SUM(TH013)) AS '金額' FROM [TK].dbo.COPTG,[TK].dbo.COPTH WHERE TG001=TH001 AND TG002=TH002 AND TH020='Y' AND   {2}   GROUP BY TG003 ", NowDB, NowDB, sbSqlQuery.ToString());
                 NowTable = "TEMP3";
             }
+            else if (comboBox1.Text.ToString().Equals("品號彙總-未核單"))
+            {
+                sbSql.AppendFormat(" SELECT TH004 AS '品號',TH005 AS '品名',CONVERT(real, SUM(TH008)) AS '數量',CONVERT(real, SUM(TH024)) AS '贈品',TH009 AS '單位',CONVERT(real, SUM(TH013)) AS '金額' FROM [TK].dbo.COPTG,[TK].dbo.COPTH WHERE TG001=TH001 AND TG002=TH002  AND  {2}  GROUP BY TH004,TH005,TH009 ORDER BY SUM(TH008) DESC", NowDB, NowDB, sbSqlQuery.ToString());
+                NowTable = "TEMP4";
+            }
 
             adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
             sqlCmdBuilder = new SqlCommandBuilder(adapter);
@@ -167,6 +172,11 @@ namespace TKECOMMERCE
                 dataGridView1.DataSource = ds.Tables[NowTable];
             }
             else if (comboBox1.Text.ToString().Equals("金額日彙總"))
+            {
+                adapter.Fill(ds, NowTable);
+                dataGridView1.DataSource = ds.Tables[NowTable];
+            }
+            else if (comboBox1.Text.ToString().Equals("品號彙總-未核單"))
             {
                 adapter.Fill(ds, NowTable);
                 dataGridView1.DataSource = ds.Tables[NowTable];
