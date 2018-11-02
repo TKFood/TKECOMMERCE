@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/28/2017 14:36:13" ReportInfo.Modified="12/28/2017 14:53:57" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/28/2017 14:36:13" ReportInfo.Modified="11/02/2018 13:27:06" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9K6cayw9phZHnC9PMw+lhIB">
-      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;SUBSTRING([ORDERNO],1,14) AS '訂單'&#13;&#10;,[PAYDATE] AS '付款日'&#13;&#10;,[RECIVER] AS '收件者'&#13;&#10;,[RECIVERTEL] AS '收件電話'&#13;&#10;,[RECIVERMOBILE] AS '收件行動電話'&#13;&#10;,[ADDER] AS '送件地址'&#13;&#10;,[DREQUEST] AS '客戶要求'&#13;&#10;,[MNO] AS '品號'&#13;&#10;,[PNO] AS '編號'&#13;&#10;,[PNAME] AS '品名'&#13;&#10;,[SPEC] AS '規格'&#13;&#10;,SUM([QUANTITY])  AS '數量'&#13;&#10;,SUM([TMONEY]) AS '金額'&#13;&#10;,SUM([QUANTITY])  AS '數量'&#13;&#10;FROM [TKECOMMERCE].[dbo].[MOMO]&#13;&#10;WHERE [PAYDATE]&gt;=@P1 AND [PAYDATE]&lt;=@P2&#13;&#10;GROUP BY SUBSTRING([ORDERNO],1,14),[PAYDATE],[RECIVER],[RECIVERTEL],[RECIVERMOBILE]&#13;&#10;,[ADDER],[DREQUEST],[MNO],[MNO],[PNO],[PNAME],[SPEC]">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KWQjw+DiCt+tGzv/jnpnx+">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;SUBSTRING([ORDERNO],1,14) AS '訂單'&#13;&#10;,[PAYDATE] AS '付款日'&#13;&#10;,[RECIVER] AS '收件者'&#13;&#10;,[RECIVERTEL] AS '收件電話'&#13;&#10;,[RECIVERMOBILE] AS '收件行動電話'&#13;&#10;,[ADDER] AS '送件地址'&#13;&#10;,[DREQUEST] AS '客戶要求'&#13;&#10;,[MNO] AS '品號'&#13;&#10;,[PNO] AS '編號'&#13;&#10;,[PNAME] AS '品名'&#13;&#10;,[SPEC] AS '規格'&#13;&#10;,SUM([QUANTITY])  AS '數量'&#13;&#10;,SUM([TMONEY]) AS '金額'&#13;&#10;,SUM([QUANTITY])  AS '數量'&#13;&#10;,[PAYKIND] AS '付款方式'&#13;&#10;FROM [TKECOMMERCE].[dbo].[MOMO]&#13;&#10;WHERE [PAYDATE]&gt;=@P1 AND [PAYDATE]&lt;=@P2&#13;&#10;GROUP BY SUBSTRING([ORDERNO],1,14),[PAYDATE],[RECIVER],[RECIVERTEL],[RECIVERMOBILE]&#13;&#10;,[ADDER],[DREQUEST],[MNO],[MNO],[PNO],[PNAME],[SPEC],[PAYKIND]">
         <Column Name="訂單" DataType="System.String"/>
         <Column Name="付款日" DataType="System.DateTime"/>
         <Column Name="收件者" DataType="System.String"/>
@@ -17,6 +17,7 @@
         <Column Name="客戶要求" DataType="System.String"/>
         <Column Name="金額" DataType="System.Decimal"/>
         <Column Name="數量1" Enabled="false" DataType="System.Int32"/>
+        <Column Name="付款方式" DataType="System.String"/>
         <CommandParameter Name="P1" DataType="12" Expression="[P1]" DefaultValue="20171227"/>
         <CommandParameter Name="P2" DataType="12" Expression="[P2]" DefaultValue="20171228"/>
       </TableDataSource>
@@ -31,6 +32,7 @@
       <TextObject Name="Text6" Left="189" Width="85.05" Height="18.9" Border.Lines="All" Text="收件者" VertAlign="Center"/>
       <TextObject Name="Text8" Left="274.05" Width="85.05" Height="18.9" Border.Lines="All" Text="收件電話" VertAlign="Center"/>
       <TextObject Name="Text10" Left="359.1" Width="85.05" Height="18.9" Border.Lines="All" Text="收件行動電話" VertAlign="Center"/>
+      <TextObject Name="Text28" Left="444.15" Width="113.4" Height="18.9" Border.Lines="All" Text="付款方式" VertAlign="Center"/>
     </PageHeaderBand>
     <GroupHeaderBand Name="GroupHeader1" Top="26.59" Width="718.2" Height="75.6" Condition="[Table.訂單]">
       <TextObject Name="Text18" Top="56.7" Width="113.4" Height="18.9" Border.Lines="All" Text="編號" VertAlign="Center"/>
@@ -48,6 +50,7 @@
       <TextObject Name="Text7" Left="274.05" Width="85.05" Height="18.9" Border.Lines="All" Text="[Table.收件電話]" VertAlign="Center"/>
       <TextObject Name="Text9" Left="359.1" Width="85.05" Height="18.9" Border.Lines="All" Text="[Table.收件行動電話]" VertAlign="Center"/>
       <TextObject Name="Text26" Left="661.5" Top="56.7" Width="56.7" Height="18.9" Border.Lines="All" Text="金額" VertAlign="Center"/>
+      <TextObject Name="Text27" Left="444.15" Width="113.4" Height="18.9" Border.Lines="All" Text="[Table.付款方式]" VertAlign="Center"/>
       <DataHeaderBand Name="DataHeader1" Top="22.75" Width="718.2"/>
       <DataBand Name="Data1" Top="106.04" Width="718.2" Height="18.9" CanGrow="true" DataSource="Table">
         <TextObject Name="Text11" Width="113.4" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.編號]" VertAlign="Center"/>
