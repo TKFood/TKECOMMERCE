@@ -129,7 +129,7 @@ namespace TKECOMMERCE
             }
             else if (checkBox1.Checked != true)
             {
-                sbSqlQuery.Append("   (TG001='A233'  ) AND ");
+                sbSqlQuery.Append("    TG001 IN ('A233' ) AND ");
             }
 
             sbSqlQuery.AppendFormat("  TG003>='{0}' AND TG003<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
