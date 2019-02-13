@@ -72,8 +72,8 @@ namespace TKECOMMERCE
                     cmd.Connection = con;
                     con.Open();
                     DataTable dtExcelSchema = con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                    sheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
-                    //sheetName = "Sheet1";
+                    //sheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
+                    sheetName = "Sheet1$";
                     con.Close();
                 }
             }
