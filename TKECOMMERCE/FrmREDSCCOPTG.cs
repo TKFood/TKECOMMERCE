@@ -124,35 +124,81 @@ namespace TKECOMMERCE
             sbSqlQuery.Clear();
 
 
-            if (checkBox1.Checked == true)
-            {
-                sbSqlQuery.Append("   (TG001 IN ('A233','A23E','A23F' ) OR (TG001 IN ('A230')  AND TG006  IN ('160092','170007') )) AND ");
-            }
-            else if (checkBox1.Checked != true)
-            {
-                sbSqlQuery.Append("    TG001 IN ('A233','A23E','A23F' ) AND ");
-            }
+            //if (checkBox1.Checked == true)
+            //{
 
-            sbSqlQuery.AppendFormat("  TG003>='{0}' AND TG003<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
 
-            if (comboBox1.Text.ToString().Equals("銷售明細"))
+            //    sbSqlQuery.Append("   TG001 IN ('A233','A23E','A23F','A230')  AND TG006  IN ('160092','170007')  ");
+            //}
+            //else if (checkBox1.Checked != true)
+            //{
+            //    sbSqlQuery.Append("   TG001 IN ('A233','A23E','A23F' )  AND TG006  IN ('160092','170007')");
+            //}
+
+            //sbSqlQuery.AppendFormat("  AND TG003>='{0}' AND TG003<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+
+            if (comboBox1.Text.ToString().Equals("銷售明細") && checkBox1.Checked != true)
             {
-                sbSql.AppendFormat(" SELECT TG001 AS '單別',TG002 AS '單號',TG003 AS '日期',TG004 AS '客代',TG007 AS '客戶' ,TH004 AS '品號',TH005 AS '品名',TH008 AS '數量',TH024 AS '贈品',TH009 AS '單位',TH013 AS '金額' FROM [{0}].dbo.COPTG,[{1}].dbo.COPTH WHERE TG001=TH001 AND TG002=TH002 AND TH020='Y' AND {2} ", NowDB, NowDB, sbSqlQuery.ToString());
+                sbSql.AppendFormat(" SELECT TG001 AS '單別',TG002 AS '單號',TG003 AS '日期',TG004 AS '客代',TG007 AS '客戶' ,TH004 AS '品號',TH005 AS '品名',TH008 AS '數量',TH024 AS '贈品',TH009 AS '單位',TH013 AS '金額' FROM [{0}].dbo.COPTG,[{1}].dbo.COPTH WHERE TG001=TH001 AND TG002=TH002 AND TH020='Y' ", NowDB, NowDB);
+                sbSql.AppendFormat(" AND  TG001 IN ('A233','A23E','A23F' )  AND TG006  IN ('160092','170007')");
+                sbSql.AppendFormat(" AND TG003>='{0}' AND TG003<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                 NowTable = "TEMP1";
             }
-            else if(comboBox1.Text.ToString().Equals("品號彙總"))
+            else if (comboBox1.Text.ToString().Equals("銷售明細") && checkBox1.Checked == true)
             {
-                sbSql.AppendFormat(" SELECT TH004 AS '品號',TH005 AS '品名',CONVERT(real, SUM(TH008)) AS '數量',CONVERT(real, SUM(TH024)) AS '贈品',TH009 AS '單位',CONVERT(real, SUM(TH013)) AS '金額' FROM [TK].dbo.COPTG,[TK].dbo.COPTH WHERE TG001=TH001 AND TG002=TH002 AND TH020='Y' AND  {2}  GROUP BY TH004,TH005,TH009 ORDER BY SUM(TH008) DESC", NowDB, NowDB, sbSqlQuery.ToString());
+                sbSql.AppendFormat(" SELECT TG001 AS '單別',TG002 AS '單號',TG003 AS '日期',TG004 AS '客代',TG007 AS '客戶' ,TH004 AS '品號',TH005 AS '品名',TH008 AS '數量',TH024 AS '贈品',TH009 AS '單位',TH013 AS '金額' FROM [{0}].dbo.COPTG,[{1}].dbo.COPTH WHERE TG001=TH001 AND TG002=TH002 AND TH020='Y' ", NowDB, NowDB);
+                sbSql.AppendFormat(" AND  TG001 IN ('A233','A23E','A23F','A230' )  AND TG006  IN ('160092','170007')");
+                sbSql.AppendFormat(" AND TG003>='{0}' AND TG003<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                NowTable = "TEMP1";
+            }
+            else if(comboBox1.Text.ToString().Equals("品號彙總") && checkBox1.Checked != true)
+            {
+                sbSql.AppendFormat(" SELECT TH004 AS '品號',TH005 AS '品名',CONVERT(real, SUM(TH008)) AS '數量',CONVERT(real, SUM(TH024)) AS '贈品',TH009 AS '單位',CONVERT(real, SUM(TH013)) AS '金額' FROM [TK].dbo.COPTG,[TK].dbo.COPTH WHERE TG001=TH001 AND TG002=TH002 AND TH020='Y' ", NowDB, NowDB);
+                sbSql.AppendFormat(" AND  TG001 IN ('A233','A23E','A23F' )  AND TG006  IN ('160092','170007')");
+                sbSql.AppendFormat(" AND TG003>='{0}' AND TG003<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(" GROUP BY TH004,TH005,TH009 ORDER BY SUM(TH008) DESC ");
                 NowTable = "TEMP2";
             }
-            else if(comboBox1.Text.ToString().Equals("金額日彙總"))
+            else if (comboBox1.Text.ToString().Equals("品號彙總") && checkBox1.Checked == true)
             {
-                sbSql.AppendFormat(" SELECT TG003 AS '日期',CONVERT(real, SUM(TH008)) AS '數量',CONVERT(real, SUM(TH024)) AS '贈品',CONVERT(real, SUM(TH013)) AS '金額' FROM [TK].dbo.COPTG,[TK].dbo.COPTH WHERE TG001=TH001 AND TG002=TH002 AND TH020='Y' AND   {2}   GROUP BY TG003 ", NowDB, NowDB, sbSqlQuery.ToString());
+                sbSql.AppendFormat(" SELECT TH004 AS '品號',TH005 AS '品名',CONVERT(real, SUM(TH008)) AS '數量',CONVERT(real, SUM(TH024)) AS '贈品',TH009 AS '單位',CONVERT(real, SUM(TH013)) AS '金額' FROM [TK].dbo.COPTG,[TK].dbo.COPTH WHERE TG001=TH001 AND TG002=TH002 AND TH020='Y' ", NowDB, NowDB);
+                sbSql.AppendFormat(" AND  TG001 IN ('A233','A23E','A23F','A230' )  AND TG006  IN ('160092','170007')");
+                sbSql.AppendFormat(" AND TG003>='{0}' AND TG003<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(" GROUP BY TH004,TH005,TH009 ORDER BY SUM(TH008) DESC ");
+                NowTable = "TEMP2";
+            }
+            else if(comboBox1.Text.ToString().Equals("金額日彙總") && checkBox1.Checked != true)
+            {
+                sbSql.AppendFormat(" SELECT TG003 AS '日期',CONVERT(real, SUM(TH008)) AS '數量',CONVERT(real, SUM(TH024)) AS '贈品',CONVERT(real, SUM(TH013)) AS '金額' FROM [TK].dbo.COPTG,[TK].dbo.COPTH WHERE TG001=TH001 AND TG002=TH002 AND TH020='Y'  ", NowDB, NowDB, sbSqlQuery.ToString());
+                sbSql.AppendFormat(" AND  TG001 IN ('A233','A23E','A23F' )  AND TG006  IN ('160092','170007')");
+                sbSql.AppendFormat(" AND TG003>='{0}' AND TG003<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(" GROUP BY TG003 ");
+
                 NowTable = "TEMP3";
             }
-            else if (comboBox1.Text.ToString().Equals("品號彙總-未核單"))
+            else if (comboBox1.Text.ToString().Equals("金額日彙總") && checkBox1.Checked == true)
             {
-                sbSql.AppendFormat(" SELECT TH004 AS '品號',TH005 AS '品名',CONVERT(real, SUM(TH008)) AS '數量',CONVERT(real, SUM(TH024)) AS '贈品',TH009 AS '單位',CONVERT(real, SUM(TH013)) AS '金額' FROM [TK].dbo.COPTG,[TK].dbo.COPTH WHERE TG001=TH001 AND TG002=TH002  AND  {2}  GROUP BY TH004,TH005,TH009 ORDER BY SUM(TH008) DESC", NowDB, NowDB, sbSqlQuery.ToString());
+                sbSql.AppendFormat(" SELECT TG003 AS '日期',CONVERT(real, SUM(TH008)) AS '數量',CONVERT(real, SUM(TH024)) AS '贈品',CONVERT(real, SUM(TH013)) AS '金額' FROM [TK].dbo.COPTG,[TK].dbo.COPTH WHERE TG001=TH001 AND TG002=TH002 AND TH020='Y'   ", NowDB, NowDB, sbSqlQuery.ToString());
+                sbSql.AppendFormat(" AND  TG001 IN ('A233','A23E','A23F','A230' )  AND TG006  IN ('160092','170007')");
+                sbSql.AppendFormat(" AND TG003>='{0}' AND TG003<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(" GROUP BY TG003 ");
+
+               NowTable = "TEMP3";
+            }
+            else if (comboBox1.Text.ToString().Equals("品號彙總-未核單") && checkBox1.Checked != true)
+            {
+                sbSql.AppendFormat(" SELECT TH004 AS '品號',TH005 AS '品名',CONVERT(real, SUM(TH008)) AS '數量',CONVERT(real, SUM(TH024)) AS '贈品',TH009 AS '單位',CONVERT(real, SUM(TH013)) AS '金額' FROM [TK].dbo.COPTG,[TK].dbo.COPTH WHERE TG001=TH001 AND TG002=TH002  ", NowDB, NowDB);
+                sbSql.AppendFormat(" AND  TG001 IN ('A233','A23E','A23F' )  AND TG006  IN ('160092','170007')");
+                sbSql.AppendFormat(" AND TG003>='{0}' AND TG003<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(" GROUP BY TH004,TH005,TH009 ORDER BY SUM(TH008) DESC");
+                NowTable = "TEMP4";
+            }
+            else if (comboBox1.Text.ToString().Equals("品號彙總-未核單") && checkBox1.Checked == true)
+            {
+                sbSql.AppendFormat(" SELECT TH004 AS '品號',TH005 AS '品名',CONVERT(real, SUM(TH008)) AS '數量',CONVERT(real, SUM(TH024)) AS '贈品',TH009 AS '單位',CONVERT(real, SUM(TH013)) AS '金額' FROM [TK].dbo.COPTG,[TK].dbo.COPTH WHERE TG001=TH001 AND TG002=TH002    ", NowDB, NowDB);
+                sbSql.AppendFormat(" AND  TG001 IN ('A233','A23E','A23F','A230' )  AND TG006  IN ('160092','170007')");
+                sbSql.AppendFormat(" AND TG003>='{0}' AND TG003<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(" GROUP BY TH004,TH005,TH009 ORDER BY SUM(TH008) DESC");
                 NowTable = "TEMP4";
             }
 
