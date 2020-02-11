@@ -36,7 +36,6 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -111,7 +110,6 @@
             this.tableLayoutPanel1.Controls.Add(this.dateTimePicker1, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.dateTimePicker2, 5, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox1, 6, 0);
             this.tableLayoutPanel1.Controls.Add(this.button1, 6, 1);
             this.tableLayoutPanel1.Controls.Add(this.button2, 7, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -178,19 +176,6 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "~";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.checkBox1, 2);
-            this.checkBox1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.checkBox1.Location = new System.Drawing.Point(483, 10);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(154, 20);
-            this.checkBox1.TabIndex = 7;
-            this.checkBox1.Text = "是否含現銷單";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -269,7 +254,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridView dataGridView1;
