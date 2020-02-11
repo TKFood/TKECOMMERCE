@@ -125,7 +125,7 @@ namespace TKECOMMERCE
 
             if(checkBox1.Checked==true)
             {
-                sbSqlQuery.Append("   (TG001='A233'  OR (TG001='A230'  AND TG006  IN ('160092','170007') )) AND ");
+                sbSqlQuery.Append("   (TG001='A233'  OR (TG001 IN ('A230','A23E','A23F')  AND TG006  IN ('160092','170007') )) AND ");
             }
             else if (checkBox1.Checked != true)
             {
