@@ -123,7 +123,15 @@ namespace TKECOMMERCE
             sbSql.Clear();
             sbSqlQuery.Clear();
 
-            sbSqlQuery.Append("   (TG001='A233'  OR (TG001 IN ('A230','A23E','A23F')  AND TG006  IN ('160092','170007') )) AND ");
+
+            if (checkBox1.Checked == true)
+            {
+                sbSqlQuery.Append("   (TG001 IN ('A233','A23E','A23F' ) OR (TG001 IN ('A230')  AND TG006  IN ('160092','170007') )) AND ");
+            }
+            else if (checkBox1.Checked != true)
+            {
+                sbSqlQuery.Append("    TG001 IN ('A233','A23E','A23F' ) AND ");
+            }
 
             sbSqlQuery.AppendFormat("  TG003>='{0}' AND TG003<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
 
