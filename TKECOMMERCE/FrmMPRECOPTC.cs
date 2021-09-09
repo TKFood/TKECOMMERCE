@@ -20,6 +20,7 @@ using System.Data.SqlClient;
 using NPOI.SS.UserModel;
 using System.Configuration;
 using NPOI.XSSF.UserModel;
+using TKITDLL;
 
 
 namespace TKECOMMERCE
@@ -110,8 +111,16 @@ namespace TKECOMMERCE
 
                 if (!string.IsNullOrEmpty(dateTimePicker1.Text.ToString()) )
                 {
-                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                    sqlConn = new SqlConnection(connectionString);
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
                     sbSql.Clear();
                     sbSqlQuery.Clear();
@@ -201,10 +210,18 @@ namespace TKECOMMERCE
                     dt.Rows.Add(dataRow);
                 }
 
-          
+
                 //add ZTKECOMMERCEFrmMPRECOPTC
-                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
                 sqlConn.Close();
                 sqlConn.Open();
@@ -266,8 +283,16 @@ namespace TKECOMMERCE
             {
                 if(ds.Tables["TEMPds"].Rows.Count>=1)
                 {
-                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                    sqlConn = new SqlConnection(connectionString);
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
                     sqlConn.Close();
                     sqlConn.Open();
@@ -358,8 +383,15 @@ namespace TKECOMMERCE
                     sqlConn.Close();
 
                     //UPDATE ZTKECOMMERCEFrmMPRECOPTC
-                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                    sqlConn = new SqlConnection(connectionString);
+                    //20210902密
+                    //Class1 TKID = new Class1();//用new 建立類別實體
+                    //SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+                    
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
                     sqlConn.Close();
                     sqlConn.Open();
@@ -410,8 +442,16 @@ namespace TKECOMMERCE
                 if (dialogResult == DialogResult.Yes)
                 {
                     //Del ZTKECOMMERCEFrmMPRECOPTC
-                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                    sqlConn = new SqlConnection(connectionString);
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
                     sqlConn.Close();
                     sqlConn.Open();
