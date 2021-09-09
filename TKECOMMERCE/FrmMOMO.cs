@@ -22,6 +22,7 @@ using System.Configuration;
 using NPOI.XSSF.UserModel;
 using FastReport;
 using System.Data.OleDb;
+using TKITDLL;
 
 namespace TKECOMMERCE
 {
@@ -196,8 +197,18 @@ namespace TKECOMMERCE
 
                 if (dt.Rows.Count > 0)
                 {
-                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                    using (SqlConnection con = new SqlConnection(connectionString))
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                    using (SqlConnection con = new SqlConnection(sqlsb.ConnectionString))
                     {
                         using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
                         {
@@ -263,7 +274,19 @@ namespace TKECOMMERCE
             report1 = new Report();
             report1.Load(@"REPORT\MOMO訂單.frx");
 
-            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+                       
 
             report1.SetParameterValue("P1", dateTimePicker1.Value.ToString("yyyyMMdd"));
 
